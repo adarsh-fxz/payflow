@@ -1,0 +1,217 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+  PayFlow tokens. Restrained strategy: true white surface, near-black ink for primary actions,
+  one honey accent (hue 68) for focus, current selection and the first chart series.
+  Status colours are semantic only and always paired with a word.
+*/
+:root {
+  --radius: 0.5rem;
+
+  --background: oklch(1 0 0);
+  --surface: oklch(0.982 0.003 75);
+  --foreground: oklch(0.215 0.012 60);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--foreground);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--foreground);
+
+  --primary: oklch(0.235 0.012 60);
+  --primary-foreground: oklch(0.985 0.002 75);
+
+  --brand: oklch(0.74 0.162 68);
+  --brand-ink: oklch(0.5 0.12 58);
+  --brand-soft: oklch(0.965 0.035 78);
+
+  --secondary: oklch(0.962 0.004 75);
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(0.962 0.004 75);
+  --muted-foreground: oklch(0.47 0.012 60);
+  --accent: oklch(0.955 0.006 75);
+  --accent-foreground: var(--foreground);
+  --destructive: oklch(0.53 0.19 27);
+
+  --ok: oklch(0.55 0.13 152);
+  --info: oklch(0.53 0.13 252);
+  --warn: oklch(0.68 0.15 66);
+  --bad: oklch(0.55 0.19 27);
+  --idle: oklch(0.66 0.01 60);
+
+  --border: oklch(0.915 0.004 75);
+  --input: oklch(0.875 0.005 75);
+  --ring: oklch(0.74 0.162 68 / 0.6);
+
+  /* chart series validated with the dataviz palette checker (light surface) */
+  --chart-1: oklch(0.52 0.12 252);
+  --chart-2: oklch(0.68 0.15 62);
+  --chart-3: oklch(0.82 0.008 70);
+  --chart-grid: oklch(0.93 0.004 75);
+}
+
+.dark {
+  --background: oklch(0.165 0.006 60);
+  --surface: oklch(0.19 0.007 60);
+  --foreground: oklch(0.95 0.004 75);
+  --card: oklch(0.19 0.007 60);
+  --card-foreground: var(--foreground);
+  --popover: oklch(0.21 0.008 60);
+  --popover-foreground: var(--foreground);
+
+  --primary: oklch(0.95 0.004 75);
+  --primary-foreground: oklch(0.2 0.01 60);
+
+  --brand: oklch(0.78 0.15 70);
+  --brand-ink: oklch(0.82 0.13 72);
+  --brand-soft: oklch(0.27 0.04 68);
+
+  --secondary: oklch(0.24 0.008 60);
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(0.235 0.008 60);
+  --muted-foreground: oklch(0.73 0.01 70);
+  --accent: oklch(0.25 0.008 60);
+  --accent-foreground: var(--foreground);
+  --destructive: oklch(0.7 0.16 25);
+
+  --ok: oklch(0.74 0.14 152);
+  --info: oklch(0.72 0.11 252);
+  --warn: oklch(0.8 0.14 72);
+  --bad: oklch(0.7 0.17 25);
+  --idle: oklch(0.6 0.01 60);
+
+  --border: oklch(0.285 0.008 60);
+  --input: oklch(0.34 0.008 60);
+  --ring: oklch(0.78 0.15 70 / 0.55);
+
+  /* validated against the dark surface */
+  --chart-1: oklch(0.62 0.12 252);
+  --chart-2: oklch(0.65 0.15 64);
+  --chart-3: oklch(0.4 0.01 60);
+  --chart-grid: oklch(0.26 0.008 60);
+}
+
+@theme inline {
+  --font-sans: var(--font-public-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-brand: var(--brand);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-soft: var(--brand-soft);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-ok: var(--ok);
+  --color-info: var(--info);
+  --color-warn: var(--warn);
+  --color-bad: var(--bad);
+  --color-idle: var(--idle);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+
+  --radius-sm: calc(var(--radius) - 3px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--brand) 30%, transparent);
+  }
+}
+
+/* money and counts: tabular, lining figures so columns line up */
+@utility num {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+/* z-index scale */
+:root {
+  --z-sticky: 20;
+  --z-dropdown: 30;
+  --z-overlay: 40;
+  --z-modal: 50;
+  --z-toast: 60;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* A sticky action bar (wizard footer) must never hide the field being edited. */
+html:has([data-sticky-footer]) {
+  scroll-padding-bottom: 6rem;
+}
+
+/*
+ * Landing entrances. Content is fully visible by default (no opacity change, so full-page
+ * screenshots and no-JS readers see it); motion only adds a short rise, and only when allowed.
+ */
+@keyframes rise-in {
+  from {
+    translate: 0 12px;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-rise {
+    animation: rise-in 0.55s var(--ease-out-expo) both;
+    animation-delay: var(--rise-delay, 0s);
+  }
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: rise-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}

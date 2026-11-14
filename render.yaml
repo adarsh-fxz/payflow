@@ -1,0 +1,29 @@
+# Render blueprint for the PayFlow worker (indexer, schedules, reminders, email outbox).
+services:
+  - type: worker
+    name: payflow-worker
+    runtime: node
+    plan: starter
+    buildCommand: npm ci && npm run db:migrate
+    startCommand: npm run worker
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: NEXT_PUBLIC_MEZO_RPC_URL
+        value: https://rpc.test.mezo.org
+      - key: NEXT_PUBLIC_MUSD_ADDRESS
+        value: "0x118917a40FAF1CD7a13dB0Ef56C86De7973Ac503"
+      - key: NEXT_PUBLIC_ESCROW_ADDRESS
+        sync: false
+      - key: NEXT_PUBLIC_REGISTRY_ADDRESS
+        sync: false
+      - key: NEXT_PUBLIC_DEPLOY_BLOCK
+        sync: false
+      - key: NEXT_PUBLIC_APP_URL
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: EMAIL_FROM
+        sync: false
+      - key: CHAIN_RPC_TIMEOUT_MS
+        value: "6000"
